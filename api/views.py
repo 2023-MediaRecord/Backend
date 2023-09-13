@@ -1,10 +1,7 @@
-# login_api/views.py
 
-from django.contrib.auth import authenticate
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
 from .models import User, Record_List, Record
 from .serializers import UserSerializer
 
@@ -35,6 +32,7 @@ def login(request):
 
 @api_view(['GET'])
 def record_list(request):
+    print('run record_list')
     user = request.data.get("user")
     tag = request.query_params.get("tag")
 
@@ -72,3 +70,19 @@ def record_list(request):
         return Response(status=200, data=data)
 
 
+@api_view(['GET'])
+def record(request, record_id):
+    
+    record = Record.objects.get(pk=record_id)
+
+    res = {
+        "title": record.title,
+        "tag": record.tag,
+        "cover_path": record.cover_path,
+        "score": record.score,
+        "memo": record.memo,
+        "isLiked": record.liked,
+        "date": record.date
+    }
+    
+    return Response(status=200, data=res)
