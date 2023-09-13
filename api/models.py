@@ -19,6 +19,7 @@ class Record_List(models.Model):
   record_id = models.ForeignKey("Record", related_name="record", on_delete=models.CASCADE, db_column="record_id")
 
 class Wish_Media(models.Model):
+  tag = models.IntegerField()
   title = models.CharField(max_length=50)
   memo = models.TextField(blank=True)
 
