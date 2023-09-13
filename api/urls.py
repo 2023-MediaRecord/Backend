@@ -9,5 +9,5 @@ urlpatterns = [
   path('records/<int:record_id>', views.record, name='record'),
   path('mypage', views.mypage, name='mypage'),
   path('wish-medias', views.wish_medias, name='wish-media-list'),
-  #path('liked-medias', views.liked_medias, name='liked-media-list')
+  path('liked-medias', views.liked_medias, name='liked-media-list')
 ]

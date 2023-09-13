@@ -118,4 +118,24 @@ def wish_medias(request):
     return Response(status=200, data=data)
 
         
+@api_view(['GET'])
+def liked_medias(request):
+    user_id = request.data.get('user')
 
+    records = Record_List.objects.filter(owner_id=user_id)
+
+    data = []
+    for record in records:
+        record_data = Record.objects.get(pk=record.record_id_id)
+        
+        if(record_data.liked):
+            data.append({
+                "id" : record_data.id,
+                "title" : record_data.title,
+                "cover_path" : record_data.cover_path,
+                "isLiked" : record_data.liked,
+                "tag": record_data.tag,
+                "date": record_data.date
+            })
+    
+    return Response(status=200, data=data)
